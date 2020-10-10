@@ -6,7 +6,7 @@ API Project: URL Shortener Microservice
 ##  How to run the app
 1. Either fork or download the app and open the folder in the cli
 2. Install all dependencies using the `npm i` command
-3. Start the web server using the `npm start` command. The app will be served at http://localhost:2125/ or http://localhost:3000/   
+3. Start the web server using the `npm start` command. The app will be served at http://localhost:2125/ or localhost:3000
 
 
 
