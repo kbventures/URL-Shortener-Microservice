@@ -75,7 +75,7 @@ app.get('/api/shorturl/:short_url', (req,res)=>{
         let url = data[0].original_url;
         console.log(url);
 
-        let testString = `www.${url}`;
+        let testString = `https://www.${url}`;
 
         //solution to problem is to add https:// to the address
         res.redirect(testString);
