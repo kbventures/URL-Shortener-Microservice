@@ -49,8 +49,9 @@ app.post('/api/shorturl/new', function(req, res){
         if(err){
             res.json({error:"invalid URL"})}
         else {
+            let addWWW = 'www.'+hostNameExtracted;
             // console.log(address);
-            let newUrl = new Shortener({original_url: hostNameExtracted});
+            let newUrl = new Shortener({original_url: addWWW});
 
             console.log(newUrl);
              newUrl.save(function(err){
@@ -58,7 +59,7 @@ app.post('/api/shorturl/new', function(req, res){
             });
             newUrl.nextCount(function(err,count){
                 console.log(count);
-                res.json({original_url:hostNameExtracted, short_url: count});
+                res.json({original_url:addWWW, short_url: count});
             })
             
         }
@@ -75,7 +76,7 @@ app.get('/api/shorturl/:short_url', (req,res)=>{
         let url = data[0].original_url;
         console.log(url);
 
-        let testString = `https://www.${url}`;
+        let testString = `https://${url}`;
 
         //solution to problem is to add https:// to the address
         res.redirect(testString);
