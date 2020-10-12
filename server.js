@@ -37,14 +37,14 @@ app.get("/api/hello", function (req, res) {
   });
 
 app.post('/api/shorturl/new', function(req, res){
-
+    console.log(`Test 1 ${req.body}`);
     // == www.google.com
     let reqUrl = req.body.url;
 
 
     var hostNameExtracted = services.host_Name_from_url(reqUrl);
     console.log(`hostNameExtracted ${hostNameExtracted}`);
-    console.log(reqUrl);
+    console.log(`Body of req ${reqUrl}`);
       dns.lookup(hostNameExtracted,(err)=>{
         if(err){
             res.json({error:"invalid URL"})}
@@ -53,12 +53,13 @@ app.post('/api/shorturl/new', function(req, res){
             // console.log(address);
             let newUrl = new Shortener({original_url: addWWW});
 
-            console.log(newUrl);
+            console.log(`Shortener Object ${newUrl}`);
              newUrl.save(function(err){
             if(err) return console.error(err);
             });
             newUrl.nextCount(function(err,count){
                 console.log(count);
+                console.log({original_url:addWWW, short_url: count})
                 res.json({original_url:addWWW, short_url: count});
             })
             
