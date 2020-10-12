@@ -68,8 +68,7 @@ app.post('/api/shorturl/new', function(req, res){
             newUrl.nextCount(function(err,count){
                 console.log(count);
                 console.log({original_url:addWWW, short_url: count})
-                let testingBug = 'www.gomix.me/shine-ear.gomix.me//rand-671/'
-                res.json({original_url:testingBug, short_url: count});
+                res.json({original_url:addWWW, short_url: count});
             })
             
         }
