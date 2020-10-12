@@ -24,6 +24,14 @@ app.use(express.urlencoded({
 app.use('/public', express.static(process.cwd() + '/public'));
 
 
+// logger
+app.use((req,res,next) => {
+    const method = req.method;
+    const path = req.path;
+    const ip = req.ip;
+    console.log(`${method} ${path} - ${ip}`);
+    next();
+  });
 
 
 //API End point
@@ -32,7 +40,7 @@ app.get('/', function(req, res){
     res.sendFile(process.cwd() + '/views/index.html');
 });
 
-app.get("/api/hello", function (req, res) {
+app.get('/api/hello', function (req, res) {
     res.json({greeting: 'hello API'});
   });
 
@@ -47,7 +55,7 @@ app.post('/api/shorturl/new', function(req, res){
     console.log(`Body of req ${reqUrl}`);
       dns.lookup(hostNameExtracted,(err)=>{
         if(err){
-            res.json({error:"invalid URL"})}
+            res.json({error:'invalid URL'})}
         else {
             let addWWW = 'www.'+hostNameExtracted;
             // console.log(address);

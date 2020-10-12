@@ -6,12 +6,15 @@ require('dotenv').config()
 const mongoose = require('mongoose');
 const autoIncrement = require('mongoose-auto-increment');
 
+
+
+
 var connection = mongoose.createConnection(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 autoIncrement.initialize(connection);
 
 
-connection.once("open", function(){
+connection.once('open', function(){
     console.log('MongoDB database connection established successfully');
 });
 
