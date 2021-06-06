@@ -10,6 +10,11 @@ var services = require('./services/helperFunctions');
 var cors = require('cors');
 var Shortener = require('./mongoose.js').ShortenerModel;
 
+
+// mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+
 var app = express();
 var port = process.env.PORT || 3000;
 
