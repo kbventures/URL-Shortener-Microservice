@@ -34,7 +34,7 @@ app.use((req,res,next) => {
     const method = req.method;
     const path = req.path;
     const ip = req.ip;
-    console.log(`${method} ${path} - ${ip}`);
+    // console.log(`${method} ${path} - ${ip}`);
     next();
   });
 
@@ -50,14 +50,14 @@ app.get('/api/hello', function (req, res) {
   });
 
 app.post('/api/shorturl', function(req, res){
-    console.log(`Test 1 ${req.body}`);
+    // console.log(`Test 1 ${req.body}`);
     // == www.google.com
     let reqUrl = req.body.url;
 
 
     var hostNameExtracted = services.host_Name_from_url(reqUrl);
-    console.log(`hostNameExtracted ${hostNameExtracted}`);
-    console.log(`Body of req ${reqUrl}`);
+    // console.log(`hostNameExtracted ${hostNameExtracted}`);
+    // console.log(`Body of req ${reqUrl}`);
       dns.lookup(hostNameExtracted,(err)=>{
         if(err){
             res.json({error:'invalid URL'})}
@@ -67,13 +67,13 @@ app.post('/api/shorturl', function(req, res){
             // console.log(address);
             let newUrl = new Shortener({original_url: addWWW});
 
-            console.log(`Shortener Object ${newUrl}`);
+            // console.log(`Shortener Object ${newUrl}`);
              newUrl.save(function(err){
             if(err) return console.error(err);
             });
             newUrl.nextCount(function(err,count){
-                console.log(count);
-                console.log({original_url:addWWW, short_url: count})
+                // console.log(count);
+                // console.log({original_url:addWWW, short_url: count})
                 res.json({original_url:addHttps, short_url: count});
             })
             
@@ -89,7 +89,7 @@ app.get('/api/shorturl/:short_url', (req,res)=>{
         // console.log(data);
         // console.log(data.shor_url);
         let url = data[0].original_url;
-        console.log(url);
+        // console.log(url);
 
         let testString = `https://${url}`;
 
