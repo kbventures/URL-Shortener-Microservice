@@ -63,6 +63,7 @@ app.post('/api/shorturl', function(req, res){
             res.json({error:'invalid URL'})}
         else {
             let addWWW = 'www.'+hostNameExtracted;
+            let addHttps = 'https://'+hostNameExtracted;
             // console.log(address);
             let newUrl = new Shortener({original_url: addWWW});
 
@@ -73,7 +74,7 @@ app.post('/api/shorturl', function(req, res){
             newUrl.nextCount(function(err,count){
                 console.log(count);
                 console.log({original_url:addWWW, short_url: count})
-                res.json({original_url:addWWW, short_url: count});
+                res.json({original_url:addHttps, short_url: count});
             })
             
         }
