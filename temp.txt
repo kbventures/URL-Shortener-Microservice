@@ -1,0 +1,99 @@
+const server = require('../app');
+const chai = require('chai');
+const assertArrays = require('chai-arrays');
+chai.use(assertArrays);
+const chaiHttp = require('chai-http');
+const expect = chai.expect;
+
+
+chai.use(chaiHttp);
+
+describe('POST NEW username',()=>{
+    it('POST NEW response should be a an object with username and _id properties and status 200',(done) =>{
+        let newUserPost = {
+            username: 'id' + (new Date()).getTime()
+        }
+        chai.request(server)
+            .post('/api/exercise/new-user')
+            .send(newUserPost)
+            .end((err,res)=>{
+                expect(res).to.have.status(200);
+                expect(res).to.be.an('object');
+                expect(res.body).that.includes.keys('_id','username');
+                expect(res.body.username).to.equals(newUserPost.username);
+                done();
+            });
+    });
+});
+
+describe('GET all users',()=>{
+    it('GET request to api/exercise/users to get an array of all users. Each element in array is an obect containing a users username and _id',
+    (done)=>{
+        chai.request(server)
+            .get('/api/exercise/users')
+            .end((err,res)=>{
+                expect(res).to.have.status(200);
+                expect(res.body).to.be.an('array');
+                done();
+            });
+    })
+});
+
+describe('POST /api/exercise/add', ()=>{
+    it('POST /api/exercise/add with form data userId=_id, description, duration and optionally date', (done)=>{
+    let newExercise = {
+        userId:'604e72083d5bb46004b448a4',
+        description:'Math Exam',
+        duration:'60',
+        date: ''
+    }
+    chai.request(server)
+        .post('/api/exercise/add')
+        .send(newExercise)
+        .end((err,res)=>{
+            expect(res).to.have.status(200);
+            expect(res).to.be.an('object');
+            expect(res.body).that.includes.keys('_id','username','description','duration','date');
+            expect(res.body._id).to.equals('604e72083d5bb46004b448a4');
+            done();
+        });
+    });
+});
+
+describe('GET /api/exercise/log?userId=_id', ()=>{
+    it('GET /api/exercise/log?userId=_id', (done)=>{
+    
+        chai.request(server)
+        .get('/api/exercise/log?userId=604e72083d5bb46004b448a4')
+        .end((err,res)=>{
+            expect(res).to.have.status(200);
+            expect(res).to.be.an('object');
+            expect(res.body).that.includes.keys('_id','username','count','log');
+            expect(res.body.log).to.be.an('array');
+            expect(res.body._id).to.equal('604e72083d5bb46004b448a4');
+            expect(res.body.username).to.equal('test0');
+            done();
+        });
+    });
+});
+
+// /api/exercise/log?userId=604e72083d5bb46004b448a4&from=1979-09-23&to=1979-09-26
+describe('GET /api/exercise/log?userId=_id&from=fromDate&to=toDate&limit=logMaxEntry', ()=>{
+    it('GET /api/exercise/log?userId=_id&from=fromDate&to=toDate&limit=logMaxEntry', (done)=>{
+        chai.request(server)
+        .get('/api/exercise/log?userId=604e72083d5bb46004b448a4&from=1979-09-24&to=1979-09-28&limit=2')
+        .end((err,res)=>{
+            expect(res).to.have.status(200);
+            expect(res).to.be.an('object');
+            expect(res.body).that.includes.keys('_id','username','count','log');
+            expect(res.body.log).to.be.an('array');
+            expect(res.body._id).to.equal('604e72083d5bb46004b448a4');
+            expect(res.body.username).to.equal('test0');
+            done();
+
+
+
+            https://boilerplate-project-urlshortener.twotani.repl.co/?v=1621725328406
+        });
+    });
+});

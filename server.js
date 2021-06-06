@@ -53,6 +53,7 @@ app.post('/api/shorturl', function(req, res){
     // console.log(`Test 1 ${req.body}`);
     // == www.google.com
     let reqUrl = req.body.url;
+    console.log(reqUrl);
 
 
     var hostNameExtracted = services.host_Name_from_url(reqUrl);
@@ -74,7 +75,7 @@ app.post('/api/shorturl', function(req, res){
             newUrl.nextCount(function(err,count){
                 // console.log(count);
                 // console.log({original_url:addWWW, short_url: count})
-                res.json({original_url:addHttps, short_url: count});
+                res.json({original_url:reqUrl, short_url: count});
             })
             
         }
@@ -103,6 +104,9 @@ app.listen(port, function(){
     console.log('Node.js listening...' + port);
 });
 
+
+
+module.exports = app; 
 
 
 
