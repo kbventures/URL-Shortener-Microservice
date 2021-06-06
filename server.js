@@ -49,7 +49,7 @@ app.get('/api/hello', function (req, res) {
     res.json({greeting: 'hello API'});
   });
 
-app.post('/api/shorturl/new', function(req, res){
+app.post('/api/shorturl', function(req, res){
     console.log(`Test 1 ${req.body}`);
     // == www.google.com
     let reqUrl = req.body.url;
