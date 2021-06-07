@@ -51,7 +51,7 @@ app.get('/api/hello', function (req, res) {
 
 app.post('/api/shorturl', function(req, res){
     let reqUrl = req.body.url;
-
+    console.log(reqUrl);
     // Check if a JavaScript string is a URL
     if(!services.isValidUrl(reqUrl)){
             return res.status(400).json({error:'invalid url'});
