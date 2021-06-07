@@ -11,7 +11,7 @@ var cors = require('cors');
 var Shortener = require('./mongoose.js').ShortenerModel;
 
 
-// mongoose.set('useNewUrlParser', true);
+
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
@@ -54,7 +54,7 @@ app.post('/api/shorturl', function(req, res){
 
     // Check if a JavaScript string is a URL
     if(!services.isValidUrl(reqUrl)){
-            return res.status(400).json({error:'invalid URL'});
+            return res.status(400).json({error:'invalid url'});
     }
 
 
