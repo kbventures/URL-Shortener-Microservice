@@ -4,8 +4,6 @@
 
 
 function host_Name_from_url(url) {
-  console.log('testing 123');
-  console.log(url);
     var result
     var match
     if (match = url.match(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n\?\=]+)/im)) {
@@ -14,8 +12,6 @@ function host_Name_from_url(url) {
             result = match[1]
         }
     }
-    console.log('testing 123');
-
     return result
 }
 
@@ -38,13 +34,13 @@ function host_Name_from_url(url) {
 
 
 function isValidUrl(string) {
+    let url;
     try {
-      new URL(string);
+      url = new URL(string);
     } catch (_) {
       return false;  
     }
-  
-    return true;
+    return url.protocol === "http:"  || url.protocol === "https:";
   }
 
 

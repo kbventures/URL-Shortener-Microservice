@@ -20,13 +20,10 @@ describe('POST NEW url', () => {
             .set('content-type', 'application/x-www-form-urlencoded')
             .send(newPost)
             .end((err,res) => {
-                // console.log(res.body.url);
-                // console.log(res.body);
                 expect(res).to.have.status(200);
                 expect(res).to.be.an('object');
                 expect(res.body).that.includes.keys('original_url', 'short_url');
                 expect(res.body.original_url).to.equals(newPost.url);
-                
                 done();
             })
     })

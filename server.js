@@ -34,7 +34,7 @@ app.use((req,res,next) => {
     const method = req.method;
     const path = req.path;
     const ip = req.ip;
-    // console.log(`${method} ${path} - ${ip}`);
+    console.log(`Logger Method: ${method} Path: ${path} - IP: ${ip}`);
     next();
   });
 
@@ -50,36 +50,32 @@ app.get('/api/hello', function (req, res) {
   });
 
 app.post('/api/shorturl', function(req, res){
-    // console.log(`Test 1 ${req.body}`);
-    // == www.google.com
     let reqUrl = req.body.url;
-    console.log(reqUrl);
+
+    // Check if a JavaScript string is a URL
+    if(!services.isValidUrl(reqUrl)){
+            return res.status(400).json({error:'invalid URL'});
+    }
 
 
-    var hostNameExtracted = services.host_Name_from_url(reqUrl);
-    // console.log(`hostNameExtracted ${hostNameExtracted}`);
-    // console.log(`Body of req ${reqUrl}`);
-      dns.lookup(hostNameExtracted,(err)=>{
-        if(err){
-            res.json({error:'invalid URL'})}
-        else {
-            let addWWW = 'www.'+hostNameExtracted;
-            let addHttps = 'https://'+hostNameExtracted;
-            // console.log(address);
-            let newUrl = new Shortener({original_url: addWWW});
 
-            // console.log(`Shortener Object ${newUrl}`);
-             newUrl.save(function(err){
-            if(err) return console.error(err);
-            });
-            newUrl.nextCount(function(err,count){
-                // console.log(count);
-                // console.log({original_url:addWWW, short_url: count})
-                res.json({original_url:reqUrl, short_url: count});
-            })
+    // var hostNameExtracted = services.host_Name_from_url(reqUrl);
+    //   dns.lookup(hostNameExtracted,(err)=>{
+    //     if(err){
+    //         res.json({error:'invalid URL'})}
+    //     else {
+    //         let addWWW = 'www.'+hostNameExtracted;
+    //         let addHttps = 'https://'+hostNameExtracted;
+    //         let newUrl = new Shortener({original_url: addWWW});
+    //          newUrl.save(function(err){
+    //         if(err) return console.error(err);
+    //         });
+    //         newUrl.nextCount(function(err,count){
+    //         res.json({original_url:reqUrl, short_url: count});
+    //        231 })
             
-        }
-    })
+    //     }
+    // })
 
 })
 
@@ -87,17 +83,10 @@ app.get('/api/shorturl/:short_url', (req,res)=>{
     let shortUrl = req.params.short_url;
     Shortener.find({short_url:shortUrl},(err,data)=>{
         if(err) return console.log(err);
-        // console.log(data);
-        // console.log(data.shor_url);
         let url = data[0].original_url;
-        // console.log(url);
-
         let testString = `https://${url}`;
-
-        //solution to problem is to add https:// to the address
         res.redirect(testString);
     })
-    // res.json({short_url:shortUrl});
 });
 
 app.listen(port, function(){
