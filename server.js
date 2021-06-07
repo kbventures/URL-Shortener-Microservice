@@ -90,15 +90,11 @@ app.post('/api/shorturl', function(req, res){
 })
 
 app.get('/api/shorturl/:short_url', (req,res)=>{
-    console.log('is anything working');
     let shortUrl = req.params.short_url;
     Shortener.find({short_url:shortUrl},(err,data)=>{
         if(err) return console.log(err);
-        console.log(data);
         let url = data[0].original_url;
-        console.log(url);
-        let testString = `https://${url}`;
-        res.redirect(testString);
+        res.redirect(url);
     })
 });
 
