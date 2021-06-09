@@ -1,6 +1,6 @@
 'use strict';
 
-require('dotenv').config();
+require('dotenv').config({ path: `./config/.env.${process.env.NODE_ENV}` });
 
 var express = require('express');
 var mongo = require('mongodb');

@@ -1,11 +1,7 @@
-//DURING THE TEST THE ENV VARIABLE IS SET TO 'test'
-process.env.NODE_ENV = 'test';
-
 // REQUIRE THE DEV-DEPENDENCIES
 const server = require('../server');
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const server = require('../server');
 const { expect } = require('chai');
 
 chai.use(chaiHttp);

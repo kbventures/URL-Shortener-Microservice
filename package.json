@@ -4,8 +4,8 @@
   "description": "API Project: URL Shortener Microservice",
   "main": "server.js",
   "scripts": {
-    "test": "mocha --timeout 10000",
-    "start": "node server.js",
+    "test": "NODE_ENV=test mocha --timeout 10000",
+    "start": "NODE_ENV=development node server.js",
     "devstart": "nodemon server.js"
   },
   "repository": {
@@ -22,6 +22,7 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "dotenv-json": "^1.0.0",
     "express": "^4.17.1",
     "mongodb": "^3.6.2",
     "mongoose": "^5.10.7",
